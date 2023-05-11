@@ -61,12 +61,13 @@ async fn handler(payload: EventPayload) {
         let mut _summary = "";
 
         if total_tokens_count > 3000 {
-            let mut token_vec = tokens.clone();
+            let mut token_vec = tokens;
             let mut map_out = "".to_string();
 
             while !token_vec.is_empty() {
-                let token_chunk = token_vec.drain(0..3000).collect::<Vec<_>>();
-
+                let drain_to = std::cmp::min(token_vec.len(), 3000);
+                let token_chunk = token_vec.drain(0..drain_to).collect::<Vec<_>>();
+            
                 let issue_body_chunk = bpe.decode(token_chunk).unwrap();
 
                 let map_question = format!("The issue is titled {issue_title}, labeled {labels}, with one chunk of the body text {issue_body_chunk}. Please summarize key information in this section.");
