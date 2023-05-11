@@ -1,0 +1,17 @@
+[package]
+name = "token-summarize-github-issue"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+github-flows = "0.5.0"
+slack-flows = "0.2.6"
+tokio_wasi = { version = "1.25.0", features = ["macros", "rt"] }
+anyhow = "1"
+dotenv = "0.15.0"
+openai-flows = "0.7.1"
+tiktoken-rs = "0.2.2"
